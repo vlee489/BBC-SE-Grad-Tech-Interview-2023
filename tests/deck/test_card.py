@@ -27,6 +27,12 @@ def test_with_value_and_face():
         Card(Suit.HEARTS, value=10, face=Face.KING)
 
 
+def test_when_value_assigned_face():
+    """Test assigning both face and value to card"""
+    with pytest.raises(TypeError) as error_info:
+        Card(Suit.HEARTS, value=Face.KING)
+
+
 def test_value_too_low():
     """Test when value is too low"""
     with pytest.raises(ValueError) as error_info:
