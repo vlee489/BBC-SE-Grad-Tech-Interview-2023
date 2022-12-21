@@ -34,10 +34,11 @@ class Deck:
         Get a random card from the deck
         :return: Card or None
         """
-        choice = random.randint(0, self.__len__())
-        pop = self.cards.pop(choice)
-        self._removed_cards.append(pop)
-        return pop
+        if self.cards:
+            choice = random.randint(0, self.__len__() - 1)
+            pop = self.cards.pop(choice)
+            self._removed_cards.append(pop)
+            return pop
 
     @classmethod
     def create_fresh_deck(cls):

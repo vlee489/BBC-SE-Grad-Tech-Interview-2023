@@ -15,6 +15,17 @@ def test_fresh_deck_size():
     assert len(deck) == 52
 
 
+def test_get_52_random_cards():
+    """Test getting 52 random cards actually results in 52 cards"""
+    deck = Deck.create_fresh_deck()
+    pop_count = 0
+    for x in range(52):
+        card = deck.get_random_card()
+        if isinstance(card, Card):
+            pop_count += 1
+    assert pop_count == 52
+
+
 def test_card_list_of_string():
     """Checks if error is throw if cards provided has invalid data type"""
     with pytest.raises(ValueError) as error_info:
