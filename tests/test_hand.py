@@ -63,3 +63,17 @@ def test_value_3():
     assert int(hand) == 42
 
 
+def test_all_value_1():
+    """Test returning of all valid values from hand for single ace"""
+    hand = Hand()
+    hand.add_card(Card(suit=Suit.DIAMONDS, face=Face.ACE))
+    assert set().union(*[hand.values(), [1, 11]])
+
+
+def test_all_value_2():
+    """Test returning of all valid values from hand for a full deck"""
+    hand = Hand()
+    deck = Deck.create_fresh_deck()
+    for x in range(len(deck)):
+        hand.add_card(deck.get_random_card())
+    assert set().union(*[hand.values(), [350, 360, 370, 380]])
