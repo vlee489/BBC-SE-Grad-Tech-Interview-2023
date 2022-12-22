@@ -64,6 +64,18 @@ class Deck:
             return True
         return False
 
+    def __iter__(self):
+        self.iter_card = 0
+        return self
+
+    def __next__(self):
+        if self.iter_card < self.__len__():
+            card = self.cards[self.iter_card]
+            self.iter_card += 1
+            return card
+        else:
+            raise StopIteration
+
 
 
 

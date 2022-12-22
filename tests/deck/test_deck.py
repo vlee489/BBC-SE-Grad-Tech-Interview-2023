@@ -51,3 +51,13 @@ def test_deck_not_equal():
     deck_1 = Deck.create_fresh_deck()
     deck_2 = Deck([])
     assert not deck_1 == deck_2
+
+
+def test_iterator():
+    """Test that deck iteration works correctly"""
+    deck = Deck.create_fresh_deck()
+    deck_count = 0
+    for card in deck:
+        if isinstance(card, Card):
+            deck_count += 1
+    assert deck_count == 52
