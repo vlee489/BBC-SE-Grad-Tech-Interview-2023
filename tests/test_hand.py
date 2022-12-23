@@ -77,3 +77,14 @@ def test_all_value_2():
     for x in range(len(deck)):
         hand.add_card(deck.get_random_card())
     assert set().union(*[hand.values(), [350, 360, 370, 380]])
+
+
+def test_get_item():
+    """Test get item"""
+    hand = Hand()
+    hand.add_card(Card(suit=Suit.DIAMONDS, face=Face.ACE))
+    card = Card(suit=Suit.HEARTS, face=Face.ACE)
+    hand.add_card(card)  # index 1
+    hand.add_card(Card(suit=Suit.SPADES, face=Face.KING))
+    hand.add_card(Card(suit=Suit.CLUBS, face=Face.KING))
+    assert hand[1] == card

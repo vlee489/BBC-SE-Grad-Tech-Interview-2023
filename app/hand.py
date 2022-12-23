@@ -62,3 +62,6 @@ class Hand:
             return card
         else:
             raise StopIteration
+
+    def __getitem__(self, item):
+        return self.cards[item]
