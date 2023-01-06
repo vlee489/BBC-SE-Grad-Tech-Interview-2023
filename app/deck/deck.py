@@ -46,9 +46,9 @@ class Deck:
         cards = []
         for suit in Suit:
             for val in range(2, 11):
-                cards.append(Card(suit, value=val))
+                cards.append(Card(suit, val))
             for face in Face:
-                cards.append(Card(suit, face=face))
+                cards.append(Card(suit, face))
         return cls(cards)
 
     def __eq__(self, other):

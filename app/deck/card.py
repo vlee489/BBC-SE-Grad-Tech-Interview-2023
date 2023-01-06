@@ -24,34 +24,27 @@ class Card:
     face_value: Union[Face, int]
     _blackjack_values: List[int]
 
-    def __init__(self, suit: Suit, face: Union[Face, None] = None, value: Union[int, None] = None):
+    def __init__(self, suit: Suit, value: Union[int, Face]):
         """
         Init
         :param suit: Card suit
-        :param face: Card face (if applicable)
-        :param value: Card value (if applicable)
+        :param value: Card value or face (if applicable)
         """
         # Assign values to card
         # Check if suit is valid
         if not isinstance(suit, Suit):
             raise SuitError(f"{suit} is not a valid Suit")
         self.suit = suit
-        # Check if face/ value is provided correct
-        if (face is None) and (value is None):
-            raise CardValueError("No face or value provided for card")
-        elif face and (value is not None):
-            raise CardValueError("Face and Value provided for card")
 
-        if face is not None:
-            if not isinstance(face, Face):  # Check face is valid before assigment
-                raise FaceError(f"{face} is not a valid Face")
-            self.face_value = face
-        elif value is not None:
-            if not isinstance(value, int):
-                raise TypeError("Value not int")
+        if isinstance(value, int):
             if (value > 10) or (value < 2):  # Check value face is valid before assigment
                 raise ValueError("Invalid value")
             self.face_value = value
+        elif isinstance(value, Face):
+            self.face_value = value
+        else:
+            raise CardValueError("Face and Value not valid")
+
         # Calculate card's black jack value
         if isinstance(self.face_value, int):
             self._blackjack_values = [self.face_value]

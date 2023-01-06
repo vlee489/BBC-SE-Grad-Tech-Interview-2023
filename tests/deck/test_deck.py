@@ -35,7 +35,7 @@ def test_card_list_of_string():
 def test_card_list_with_mixed():
     """Tests if error is throw if list with mixed data types are provided"""
     with pytest.raises(ValueError) as error_info:
-        cards = ["Invalid", "Card", 1, 4, Card(Suit.HEARTS, value=3), Card(Suit.DIAMONDS, face=Face.KING)]
+        cards = ["Invalid", "Card", 1, 4, Card(Suit.HEARTS, 3), Card(Suit.DIAMONDS, Face.KING)]
         Deck(cards)
 
 

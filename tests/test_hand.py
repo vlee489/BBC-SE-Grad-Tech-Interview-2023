@@ -23,50 +23,50 @@ def test_total_card_bj_value():
 def test_single_ace_cal():
     """Tests calculating score for one ace card"""
     hand = Hand()
-    hand.add_card(Card(suit=Suit.HEARTS, face=Face.ACE))
+    hand.add_card(Card(Suit.HEARTS, Face.ACE))
     assert int(hand) == 11
 
 
 def test_two_ace_cal():
     """Tests calculating score for two ace card"""
     hand = Hand()
-    hand.add_card(Card(suit=Suit.HEARTS, face=Face.ACE))
-    hand.add_card(Card(suit=Suit.SPADES, face=Face.ACE))
+    hand.add_card(Card(Suit.HEARTS, Face.ACE))
+    hand.add_card(Card(Suit.SPADES, Face.ACE))
     assert int(hand) == 12
 
 
 def test_value_1():
     """First test of adding values"""
     hand = Hand()
-    hand.add_card(Card(suit=Suit.HEARTS, face=Face.ACE))  # 1
-    hand.add_card(Card(suit=Suit.SPADES, face=Face.ACE))  # 1
-    hand.add_card(Card(suit=Suit.DIAMONDS, face=Face.KING))  # 10
+    hand.add_card(Card(Suit.HEARTS, Face.ACE))  # 1
+    hand.add_card(Card(Suit.SPADES, Face.ACE))  # 1
+    hand.add_card(Card(Suit.DIAMONDS, Face.KING))  # 10
     assert int(hand) == 12
 
 
 def test_value_2():
     """Second test of adding values"""
     hand = Hand()
-    hand.add_card(Card(suit=Suit.CLUBS, face=Face.ACE))  # 1
-    hand.add_card(Card(suit=Suit.SPADES, face=Face.KING))  # 10
-    hand.add_card(Card(suit=Suit.HEARTS, face=Face.KING))  # 10
+    hand.add_card(Card(Suit.CLUBS, Face.ACE))  # 1
+    hand.add_card(Card(Suit.SPADES, Face.KING))  # 10
+    hand.add_card(Card(Suit.HEARTS, Face.KING))  # 10
     assert int(hand) == 21
 
 
 def test_value_3():
     """Third test of adding values"""
     hand = Hand()
-    hand.add_card(Card(suit=Suit.DIAMONDS, face=Face.ACE))  # 11
-    hand.add_card(Card(suit=Suit.HEARTS, face=Face.ACE))  # 11
-    hand.add_card(Card(suit=Suit.SPADES, face=Face.KING))  # 10
-    hand.add_card(Card(suit=Suit.CLUBS, face=Face.KING))  # 10
+    hand.add_card(Card(Suit.DIAMONDS, Face.ACE))  # 11
+    hand.add_card(Card(Suit.HEARTS, Face.ACE))  # 11
+    hand.add_card(Card(Suit.SPADES, Face.KING))  # 10
+    hand.add_card(Card(Suit.CLUBS, Face.KING))  # 10
     assert int(hand) == 42
 
 
 def test_all_value_1():
     """Test returning of all valid values from hand for single ace"""
     hand = Hand()
-    hand.add_card(Card(suit=Suit.DIAMONDS, face=Face.ACE))
+    hand.add_card(Card(Suit.DIAMONDS, Face.ACE))
     assert set().union(*[hand.values(), [1, 11]])
 
 
@@ -82,9 +82,9 @@ def test_all_value_2():
 def test_get_item():
     """Test get item"""
     hand = Hand()
-    hand.add_card(Card(suit=Suit.DIAMONDS, face=Face.ACE))
-    card = Card(suit=Suit.HEARTS, face=Face.ACE)
+    hand.add_card(Card(Suit.DIAMONDS, Face.ACE))
+    card = Card(Suit.HEARTS, Face.ACE)
     hand.add_card(card)  # index 1
-    hand.add_card(Card(suit=Suit.SPADES, face=Face.KING))
-    hand.add_card(Card(suit=Suit.CLUBS, face=Face.KING))
+    hand.add_card(Card(Suit.SPADES, Face.KING))
+    hand.add_card(Card(Suit.CLUBS, Face.KING))
     assert hand[1] == card
