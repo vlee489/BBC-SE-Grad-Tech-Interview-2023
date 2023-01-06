@@ -1,9 +1,13 @@
+"""
+This class represents a card in a deck or hand and can calculate its value
+"""
 from enum import Enum
 from typing import Optional, Union, List
 from .exceptions import SuitError, FaceError, CardValueError
 
 
 class Suit(Enum):
+    """Enum of valid Suit for a deck of cards"""
     DIAMONDS = "DIAMONDS"
     SPADES = "SPADES"
     CLUBS = "CLUBS"
@@ -12,6 +16,7 @@ class Suit(Enum):
 
 # I'm making the assumption a Jack is a face card for simplicity
 class Face(Enum):
+    """Enum of valid Faces for a deck of cards"""
     ACE = "ACE"
     JACK = "JACK"
     QUEEN = "QUEEN"

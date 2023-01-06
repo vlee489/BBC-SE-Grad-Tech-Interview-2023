@@ -1,3 +1,7 @@
+"""
+This Game class acts as a place to store a deck of cards and the hands of players
+it has no logic for working playing the game, that's determined by the player(what uses this class)
+"""
 from typing import List, Optional, Dict
 from app.player import Player
 from app.deck import Card, Deck
@@ -51,3 +55,15 @@ class Game:
         if card:  # If card is not None
             self.players[player].hand.add_card(card)
         return card
+
+    # def stand(self, player: int) -> None:
+    #     """
+    #     Stand (do nothing to a player's hand)
+    #     :param player: player number
+    #     :return: None
+    #     """
+    #     # This is here symbolically, as we don't need to do anything here (aka ignore me)
+    #     pass
+
+    def __getitem__(self, player_int):
+        return self.players[player_int]

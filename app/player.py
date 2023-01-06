@@ -1,3 +1,7 @@
+"""
+This class represents a player and their hand. Also notes if player is a cpu/AI for use in an end playable
+game
+"""
 from app.hand import Hand
 
 

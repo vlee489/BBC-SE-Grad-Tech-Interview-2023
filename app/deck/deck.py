@@ -1,3 +1,6 @@
+"""
+This class represents a deck of cards that a user can pull from during a game
+"""
 from .card import Card, Suit, Face
 from typing import List, Optional
 import random

@@ -1,3 +1,7 @@
+"""
+This class represents a player's hand in the game of Blackjack and can work out the differing values and if
+the hand itself if valid.
+"""
 from typing import List, Optional
 from app.deck import Card, Face
 
@@ -61,10 +65,12 @@ class Hand:
         return len(self.cards)
 
     def __iter__(self):
+        """Start iterator on object"""
         self.__iter_card = 0
         return self
 
     def __next__(self):
+        """Get next item in iteration"""
         if self.__iter_card < self.__len__():
             card = self.cards[self.__iter_card]
             self.__iter_card += 1
@@ -73,4 +79,5 @@ class Hand:
             raise StopIteration
 
     def __getitem__(self, item):
+        """Get card item"""
         return self.cards[item]
