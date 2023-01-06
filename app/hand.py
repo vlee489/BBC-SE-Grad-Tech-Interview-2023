@@ -32,6 +32,15 @@ class Hand:
         # Work out all the possible values with aces and return
         return [value - (aces_as_1 * 10) for aces_as_1 in range(ace_cards + 1)]
 
+    def valid(self) -> bool:
+        """
+        If hand is valid (total score <= 21)
+        :return: bool
+        """
+        if int(self) <= 21:
+            return True
+        return False
+
     def __int__(self) -> int:
         """passes closest value to 21"""
         values = self.values()  # Get list of values
