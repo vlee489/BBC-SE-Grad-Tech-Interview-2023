@@ -7,12 +7,15 @@ from app.player import Player
 from app.deck import Card, Deck
 
 
+term_colours = ["red", "green", "yellow", "blue", "magenta", "cyan"]
+
+
 class Game:
     """Represents a game of Blackjack"""
-    players: Dict[int, Player]
+    players: List[Player]
     deck: Deck
 
-    def __init__(self, deck: Deck, players: Dict[int, Player]):
+    def __init__(self, deck: Deck, players: List[Player]):
         """
         Init
         :param deck: card deck
@@ -29,11 +32,19 @@ class Game:
         :param cpu_count: number of CPUs
         :return: Game
         """
-        players = {}
+        player_count = 1
+        players = []
+        __colours = term_colours
         for p in range(players_count):
-            players[(len(players) + 1)] = Player()
+            if not __colours:
+                __colours = term_colours
+            players.append(Player(player_count, __colours.pop()))
+            player_count += 1
         for c in range(cpu_count):
-            players[(len(players) + 1)] = Player(cpu=True)
+            if not __colours:
+                __colours = term_colours
+            players.append(Player(player_count, __colours.pop(), cpu=True))
+            player_count += 1
         return cls(Deck.create_fresh_deck(), players)
 
     def initial_hand(self) -> None:
@@ -42,7 +53,7 @@ class Game:
         :return: None
         """
         for x in range(2):
-            for player in self.players.values():
+            for player in self.players:
                 player.hand.add_card(self.deck.get_random_card())
 
     def hit(self, player: int) -> Optional[Card]:
@@ -67,3 +78,17 @@ class Game:
 
     def __getitem__(self, player_int):
         return self.players[player_int]
+
+    def __iter__(self):
+        """Start iterator on object"""
+        self.__iter_player = 0
+        return self
+
+    def __next__(self):
+        """Get next item in iteration"""
+        if self.__iter_player < len(self.players):
+            player = self.players[self.__iter_player]
+            self.__iter_player += 1
+            return player
+        else:
+            raise StopIteration

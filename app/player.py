@@ -9,10 +9,16 @@ class Player:
     """Represents a player in a game of blackjack"""
     hand: Hand
     cpu: bool
+    text_colour: str
+    show_bust: bool
+    player_num: int
 
-    def __init__(self, cpu: bool = False):
+    def __init__(self, player_num: int, text_colour: str, cpu: bool = False):
         self.hand = Hand()
+        self.player_num = player_num
         self.cpu = cpu
+        self.text_colour = text_colour
+        self.show_bust = False
 
     def is_bust(self) -> bool:
         """
