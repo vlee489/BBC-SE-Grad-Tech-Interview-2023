@@ -10,18 +10,17 @@ def test_scenario_one():
     game = Game.create_game(1, 0)  # 1 player
     pytest.shared.game = game  # Store hand in Pytest's local test memory for recall later
     game.initial_hand()
-    # The game will always start players from 1
-    player_hand = game[1].hand
+    player_hand = game[0].hand
     assert len(player_hand) == 2
 
 
 def test_scenario_two():
     """if hand is valid take another card"""
     game = pytest.shared.game
-    player_hand: Hand = game[1].hand
+    player_hand: Hand = game[0].hand
     if player_hand.valid():
         initial_score = int(player_hand)
-        game.hit(1)
+        game.hit(0)
         assert initial_score != int(player_hand)
     else:
         pytest.skip(f"Skipped Test: Hand not valid {player_hand.values()}")
@@ -32,7 +31,7 @@ def test_scenario_two():
 def test_scenario_four_and_five():
     """if hand is valid and score of 21"""
     game = pytest.shared.game
-    player_hand: Hand = game[1].hand
+    player_hand: Hand = game[0].hand
     if int(player_hand) <= 21:
         assert player_hand.valid()
     elif int(player_hand) > 21:

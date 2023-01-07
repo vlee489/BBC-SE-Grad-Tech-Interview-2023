@@ -9,7 +9,7 @@ def test_initial_hand():
     game = Game.create_game(4, 1)  # 5 players total
     game.initial_hand()
     is_correct = True
-    for player in game.players.values():
+    for player in game:
         if len(player.hand) != 2:
             is_correct = False
     assert is_correct

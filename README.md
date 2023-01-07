@@ -18,6 +18,16 @@ pip install -r requirements.txt
 
 *it's recommended you create a Python virtual environment to run this application*
 
+## Playing the game
+A basic playable cmdline game can be started using the following command from the application's root dir.
+
+```bash
+python -m app
+```
+Then follow the onscreen instructions to start the game.
+
+*This application build as a module*
+
 ## Unit Tests
 This application uses PyTest to for unit testing installed with the dependencies, to run the unit test you can do the
 following command.
