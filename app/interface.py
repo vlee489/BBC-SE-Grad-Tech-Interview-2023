@@ -30,8 +30,11 @@ class Interface:
                     player.show_bust = True
                 elif player.hand.valid():
                     cprint(f"Player {player.player_num} is valid at {int(player.hand)}", player.text_colour)
+            print("---")
 
-            # TODO: Check players if deck is gone
+            # Check deck is gone
+            if len(self.game.deck) == 0:
+                self.out_of_cards_routine()
 
             # Check there's a player with a valid hand
             # Go through all players and count number of people with valid hands
@@ -51,24 +54,27 @@ class Interface:
                 return
             # else allow game to continue on
 
-            # Allow Players to choose cards
-            for x in range(self.players):
-                if self.game[x].hand.valid():
-                    p_choice = self.player_input(x)
-                    if p_choice:
-                        card = self.game.hit(x)
-                        cprint(f"player {x + 1} choose hit and drew: {card}")
+            # Gp through each player and allow them to make a move
+            for player in self.game:
+                # Check deck is gone
+                if len(self.game.deck) == 0:
+                    self.out_of_cards_routine()
 
-            # Allow CPUs to choose card
-            for x in range(self.cpus):
-                cpu = x + self.players
-                cpu_player = self.game[cpu]
-                if cpu_player.hand.valid():
-                    if cpu_decision(self.game[cpu].hand, int(self.game.deck)):
-                        self.game.hit(cpu)
-                        cprint(f"CPU player {cpu} decided to HIT and drew a card!", cpu_player.text_colour)
-                    else:
-                        cprint(f"CPU player {cpu} decided to STAND", cpu_player.text_colour)
+                if not player.cpu:  # If human player
+                    if player.hand.valid():
+                        p_choice = self.player_input(player.player_num)  # Take human input
+                        if p_choice:  # If they chose to Hit
+                            card = self.game.hit(player.player_num)  # Draw card
+                            cprint(f"player {player.player_num} choose hit and drew: {card}", player.text_colour)
+                else:  # is a CPU
+                    if player.hand.valid():
+                        if cpu_decision(player.hand, int(self.game.deck)):  # CPU chooses to hit or not
+                            self.game.hit(player.player_num)  # Draw card
+                            cprint(f"CPU player {player.player_num} decided to HIT and drew a card!",
+                                   player.text_colour)
+                        else:
+                            cprint(f"CPU player {player.player_num} decided to STAND", player.text_colour)
+
             # Print cards players have
             self.print_players_cards()
 
@@ -84,6 +90,35 @@ class Interface:
                 if not player.hand.valid():
                     cprint(f"You've gone bust and are out!", player.text_colour)
         print("---")
+
+    def out_of_cards_routine(self):
+        """Runs when there's no cards left in deck"""
+        # if deck has no cards
+        closest_player = []  # Holds players with the highest value
+        closest_hand_value = 0  # Holds the highest hand value
+        for player in self.game:
+            if player.hand.valid():
+                if int(player.hand) > closest_hand_value:
+                    # If the hand value is greater than what we already have
+                    closest_hand_value = int(player.hand)  # Set the newest highest value
+                    closest_player = [player]  # Overwrite the list with the single highest value
+                elif int(player.hand) == closest_hand_value:
+                    # Is the value is the same as our current highest value we append it to the list of players
+                    # with tha value
+                    closest_player.append(player)
+        if closest_player:
+            # Forms a string with the player number of the players with the highest value
+            player_num = ""
+            for player in closest_player:
+                player_num += f"{player.player_num}, "
+            print("Deck is now empty!")
+            print(f"Players closest to 21 are {player_num[:-2]} with a score of {closest_hand_value}")
+            exit(0)  # exit game
+        else:
+            # Shows message is not one has a valid hand when deck is empty
+            print("Deck is now empty!")
+            print("No players have a valid deck >.<")
+            exit(0)  # exit game
 
     @staticmethod
     def player_input(player: int) -> bool:
