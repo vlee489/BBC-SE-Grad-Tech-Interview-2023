@@ -79,7 +79,9 @@ class Deck:
         else:
             raise StopIteration
 
-
+    def __int__(self):
+        """Return size of deck"""
+        return len(self.cards)
 
 
 
