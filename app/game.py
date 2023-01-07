@@ -5,6 +5,7 @@ it has no logic for working playing the game, that's determined by the player(wh
 from typing import List, Optional, Dict
 from app.player import Player
 from app.deck import Card, Deck
+import copy
 
 
 # Used to colour terminal output
@@ -35,15 +36,16 @@ class Game:
         """
         player_count = 1
         players = []
-        __colours = term_colours
+        # We use deepcopy to avoid referring the original list as we might need the values again
+        __colours = copy.deepcopy(term_colours)
         for p in range(players_count):
             if not __colours:
-                __colours = term_colours
+                __colours = copy.deepcopy(term_colours)
             players.append(Player(player_count, __colours.pop()))
             player_count += 1
         for c in range(cpu_count):
             if not __colours:
-                __colours = term_colours
+                __colours = copy.deepcopy(term_colours)
             players.append(Player(player_count, __colours.pop(), cpu=True))
             player_count += 1
         return cls(Deck.create_fresh_deck(), players)
@@ -63,6 +65,7 @@ class Game:
         :param player: player number
         :return: card drawn
         """
+        player -= 1
         card = self.deck.get_random_card()
         if card:  # If card is not None
             self.players[player].hand.add_card(card)

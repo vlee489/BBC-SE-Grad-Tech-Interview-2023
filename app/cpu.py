@@ -10,6 +10,6 @@ def cpu_decision(hand: Hand, deck_size: int):
     :param deck_size: the size of the deck remaining
     :return: bool, True = Hit, False = Stand
     """
-    # TODO : add actual logic
+    # This is here incase I want to add smarted login in the future
     return bool(random.getrandbits(1))
 
