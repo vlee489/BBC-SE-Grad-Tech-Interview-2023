@@ -7,6 +7,7 @@ from app.player import Player
 from app.deck import Card, Deck
 
 
+# Used to colour terminal output
 term_colours = ["red", "green", "yellow", "blue", "magenta", "cyan"]
 
 

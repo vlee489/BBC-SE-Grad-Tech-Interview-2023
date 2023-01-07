@@ -82,5 +82,8 @@ class Card:
 
     def __str__(self):
         """Return name of card"""
-        return f"{self.face_value} of {self.suit}"
+        value = self.face_value
+        if isinstance(value, Face):
+            value = value.name
+        return f"{value} of {self.suit.name}"
 
